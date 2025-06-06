@@ -1,0 +1,697 @@
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', 'Noto Serif Telugu', sans-serif;
+}
+
+body {
+  background-color: transparent;
+  background-image: url('https://effectivelaws.com/wp-content/uploads/2025/01/Duties-of-Indian-Citizens.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #1a202c;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 58, 138, 0.55); /* Overlay with your theme blue for contrast */
+  z-index: -1;
+  pointer-events: none;
+}
+
+.navbar {
+  background: #1e3a8a;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #f97316;
+}
+
+header {
+  background: linear-gradient(135deg, #1e3a8a, #f97316);
+  color: white;
+  text-align: center;
+  padding: 5rem 1rem;
+  position: relative;
+  overflow: hidden;
+  background-size: 150% 150%;
+  background-position: 0 0;
+  animation: parallaxShift 20s linear infinite;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+  animation: pulse 10s infinite;
+  z-index: 1;
+}
+
+header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
+  animation: fadeInDown 1s ease-out;
+}
+
+header p {
+  font-size: 1.4rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Noto Serif Telugu', sans-serif;
+  position: relative;
+  z-index: 2;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.logo-mascot {
+  height: 100px;
+  width: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.section {
+  background: white;
+  border-radius: 15px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-out;
+}
+
+.section h2 {
+  font-size: 2.2rem;
+  color: #1e3a8a;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+}
+
+.section h2::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #f97316, #f59e0b);
+  margin: 0.5rem auto;
+  border-radius: 2px;
+}
+
+.problem-solution, .features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: linear-gradient(145deg, #f7fafc, #e6f0fa);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 2px solid #d1e7ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  border-color: #f97316;
+}
+
+.card h3 {
+  font-size: 1.4rem;
+  color: #1e3a8a;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #4a5568;
+}
+
+.chat-preview {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chat-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.chat-bubble {
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 0.5rem 0;
+  max-width: 70%;
+  font-size: 1rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.user-bubble {
+  background: #bfdbfe;
+  margin-right: 1rem;
+}
+
+.bot-bubble {
+  background: #bbf7d0;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.typing {
+  display: flex;
+  align-items: center;
+}
+
+.typing-dots {
+  font-size: 1.2rem;
+  animation: typingDots 1s infinite;
+}
+
+.chat-input {
+  display: flex;
+  gap: 1rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.chat-input input:focus {
+  border-color: #1e3a8a;
+  box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
+}
+
+.chat-input button {
+  padding: 0.75rem 1.5rem;
+  background: #f97316;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chat-input button:hover {
+  background: #e66a0b;
+}
+
+.testimonial-section {
+  text-align: center;
+}
+
+.testimonial-carousel {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+}
+
+.testimonial {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.testimonial.active {
+  opacity: 1;
+}
+
+.testimonial p {
+  font-size: 1.2rem;
+  color: #1a202c;
+  font-family: 'Noto Serif Telugu', sans-serif;
+}
+
+.cta {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(90deg, #f97316, #f59e0b);
+  color: white;
+  border-radius: 15px;
+  margin: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+  animation: pulse 8s infinite;
+}
+
+.cta h2 {
+  font-size: 2.2rem;
+  color: white;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.cta h2::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #1e3a8a, #1c4a8a);
+  margin: 0.5rem auto;
+  border-radius: 2px;
+}
+
+.cta a {
+  display: inline-block;
+  background: #1e3a8a;
+  color: white;
+  padding: 1rem 3rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: transform 0.3s ease, background 0.3s ease;
+  position: relative;
+  z-index: 2;
+  animation: pulseButton 2s infinite;
+}
+
+.cta a:hover {
+  background: #1c4a8a;
+  transform: scale(1.05);
+}
+
+.sticky-cta {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #f97316;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: pulseButton 2s infinite;
+  z-index: 1000;
+}
+
+.sticky-cta:hover {
+  background: #e66a0b;
+  transform: scale(1.1);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #1e3a8a;
+  color: white;
+  font-size: 1.1rem;
+  font-family: 'Noto Serif Telugu', sans-serif;
+}
+
+.social-icons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.social-icon {
+  color: white;
+  text-decoration: none;
+  font-size: 1.3rem;
+  padding: 0.4rem;
+  border: 1px solid #f97316;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+  background: #f97316;
+  color: #1e3a8a;
+  transform: scale(1.1);
+}
+
+.logo-placeholder {
+  display: none; /* Hidden since SVG mascot is used */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0.2; }
+  100% { transform: scale(1); opacity: 0.5; }
+}
+
+@keyframes pulseButton {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseMascot {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes parallaxShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 150% 150%; }
+}
+
+@keyframes typingDots {
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
+  100% { content: '.'; }
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+  }
+
+  .section h2 {
+    font-size: 1.8rem;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+  }
+
+  .cta h2 {
+    font-size: 1.8rem;
+  }
+
+  .cta a {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  .sticky-cta {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+  }
+
+  .social-icon {
+    font-size: 1.1rem;
+    width: 30px;
+    height: 30px;
+  }
+
+  .logo-mascot {
+    width: 80px;
+    height: 80px;
+  }
+  .cta-buttons {
+    text-align: center;
+    margin: 20px auto;
+  }
+
+  .cta-button {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background-color: #0B6623; /* dark green for government theme */
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background-color: #0d8b35; /* lighter green on hover */
+  }
+}
+
+/* ======= Floating Social Icons (Top Right) ======= */
+/* Floating Social Icons (Top Right) */
+/* Floating Social Icons + Login Button (Top Right) */
+.floating-icons {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  z-index: 10000;
+}
+
+.floating-icons .icon,
+.floating-icons .login-btn {
+  font-size: 20px;
+  padding: 12px;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+}
+
+/* Existing icons */
+.icon.whatsapp {
+  background-color: #25D366;
+}
+
+.icon.email {
+  background-color: #0072c6;
+}
+
+.icon.phone {
+  background-color: #ff4d4d;
+}
+
+/* New icons */
+.icon.twitter {
+  background-color: #1DA1F2;
+}
+
+.icon.instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, 
+              #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.floating-icons .icon:hover,
+.floating-icons .login-btn:hover {
+  opacity: 0.85;
+}
+
+/* Login button specific styles */
+.login-btn {
+  background-color: #f97316; /* Orange button matching theme */
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 25px; /* pill shape */
+  padding: 10px 18px;
+  width: auto;
+  min-width: 70px;
+  justify-content: center;
+  box-shadow: 0 6px 12px rgba(249, 115, 22, 0.7);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #e66a0b;
+  box-shadow: 0 8px 16px rgba(230, 106, 11, 0.9);
+}
+
+/* Modal Background */
+/* Modal styles */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 10000; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto; 
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.close-btn {
+  color: #aaa;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.modal-content h2 {
+  margin-bottom: 1rem;
+  color: #004aad;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.modal-content button {
+  width: 100%;
+  background: #004aad;
+  color: white;
+  border: none;
+  padding: 0.7rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.modal-content button:hover {
+  background: #003580;
+}

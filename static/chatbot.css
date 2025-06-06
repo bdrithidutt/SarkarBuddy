@@ -1,0 +1,275 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e3f2fd, #fce4ec);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.chat-container {
+  background: white;
+  margin-top: 30px;
+  width: 90%;
+  max-width: 650px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #3f51b5;
+}
+
+.language-select {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.chat-box {
+  height: 320px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #fafafa;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+textarea {
+  flex: 1;
+  height: 60px;
+  resize: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #aaa;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+/* Make camera button large and visually appealing */
+.upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff3e0;
+  border: 2px solid #ff9800;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+  font-size: 2rem;
+  box-shadow: 0 4px 16px rgba(255,152,0,0.15);
+}
+
+.upload-btn:hover {
+  background: #ffe0b2;
+  box-shadow: 0 8px 24px rgba(255,152,0,0.25);
+}
+
+.upload-btn i {
+  font-size: 2.2rem;
+  color: #ff9800;
+}
+button, .upload-btn {
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover, .upload-btn:hover {
+  background-color: #388e3c;
+}
+
+.upload-btn i, button i {
+  pointer-events: none;
+}
+/* Chat container styling */
+.chat-container {
+  max-width: 430px;
+  margin: 40px auto;
+  background: #f9fafc;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  font-family: 'Poppins', 'Noto Serif Telugu', serif;
+  position: relative;
+}
+
+/* Chat box styling */
+.chat-box {
+  background: #fff;
+  border-radius: 12px;
+  min-height: 220px;
+  max-height: 320px;
+  overflow-y: auto;
+  margin-bottom: 1.2rem;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* Message bubbles */
+.message {
+  margin-bottom: 0.7rem;
+  padding: 0.7rem 1rem;
+  border-radius: 16px;
+  background: #e3f2fd;
+  color: #004aad;
+  font-size: 1.05rem;
+  word-break: break-word;
+  box-shadow: 0 1px 4px rgba(0,74,173,0.07);
+}
+
+.message strong {
+  color: #ff9800;
+}
+
+/* Input group styling */
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#user-input {
+  flex: 1;
+  border-radius: 18px;
+  border: 1.5px solid #bdbdbd;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  resize: none;
+}
+
+#user-input:focus {
+  border: 1.5px solid #004aad;
+}
+
+#send-btn, #voice-btn, #speak-btn {
+  background: #004aad;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,74,173,0.08);
+}
+
+#send-btn:hover, #voice-btn:hover, #speak-btn:hover {
+  background: #ff9800;
+  color: #fff;
+}
+
+.language-select {
+  margin-bottom: 1rem;
+  text-align: right;
+}
+
+.language-select label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+  color: #004aad;
+}
+
+.language-select select {
+  border-radius: 8px;
+  border: 1px solid #bdbdbd;
+  padding: 0.3rem 0.7rem;
+  font-size: 1rem;
+  outline: none;
+}
+
+h1 {
+  text-align: center;
+  color: #004aad;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+body {
+  background: linear-gradient(135deg, #e3f2fd 0%, #fffde7 100%);
+  min-height: 100vh;
+}
+/* Camera/Upload Button - smaller */
+.upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff3e0;
+  border: 2px solid #ff9800;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  margin: 0 6px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 8px rgba(255,152,0,0.10);
+}
+
+.upload-btn i {
+  font-size: 1.3rem;
+  color: #ff9800;
+}
+
+/* Other buttons (voice, speak, send) */
+#voice-btn, #speak-btn, #send-btn {
+  background: #004aad;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,74,173,0.08);
+}
+
+#voice-btn:hover, #speak-btn:hover, #send-btn:hover {
+  background: #ff9800;
+  color: #fff;
+}
+/* Add to chatbot.css */
+.chat-image {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 8px;
+  margin-top: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}

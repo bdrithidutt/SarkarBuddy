@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sarkar Buddy Chatbot</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+
+<body>
+  <div class="chat-container">
+    <h1>Sarkar Buddy</h1>
+
+    <div class="language-select">
+      <label for="language">Select Language:</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="te">Telugu</option>
+      </select>
+    </div>
+
+    <div class="chat-box" id="chat-box"></div>
+    <img id="image-preview" style="display:none; max-width: 120px; max-height: 120px; margin: 10px auto; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);" />
+    <div class="input-group">
+      <textarea id="user-input" placeholder="Ask your question..."></textarea>
+      <!-- Camera/Upload Button -->
+      <label for="image-upload" class="upload-btn" title="Upload photo">
+        <i class="fas fa-camera"></i>
+        <input type="file" id="image-upload" accept="image/*" style="display:none;">
+      </label>
+      <!-- Voice Input Button -->
+      <button id="voice-btn" title="Speak"><i class="fas fa-microphone"></i></button>
+      <!-- Read Aloud Button -->
+      <button id="speak-btn" title="Read aloud"><i class="fas fa-volume-up"></i></button>
+      <!-- Send Button (Arrow) -->
+      <button id="send-btn" title="Send"><i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <audio id="audio-response" style="display: none;"></audio>
+  </div>
+
+  <script>
+   
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    const voiceBtn = document.getElementById('voice-btn');
+    const speakBtn = document.getElementById('speak-btn');
+    const langSelect = document.getElementById('language');
+    const imageInput = document.getElementById('image-upload');
+    const audio = document.getElementById('audio-response');
+
+    let imageBase64 = "";
+    let synth = window.speechSynthesis;
+    let isSpeaking = false;
+    appendMessage("Sarkar Buddy", "Hey, how can I help you today");
+
+    imageInput.addEventListener('change', async (event) => {
+      const file = event.target.files[0];
+      const preview = document.getElementById('image-preview');
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          imageBase64 = reader.result;
+          preview.src = imageBase64;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        imageBase64 = "";
+        preview.src = "";
+        preview.style.display = "none";
+        }
+    });
+
+   sendBtn.onclick = async () => {
+    const message = userInput.value.trim();
+     const language = langSelect.value;
+    if (!message && !imageBase64) return;
+
+  // Show your message with image (if any)
+    appendMessage("You", message, imageBase64);
+
+    appendMessage("Sarkar Buddy", "Thinking...");
+
+    userInput.value = "";
+
+    const formData = new FormData();
+    formData.append("user_input", message);
+    formData.append("target_language", language);
+    formData.append("user_language", language);
+    formData.append("image_data", imageBase64);
+
+    const response = await fetch("/chat", {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await response.json();
+    replaceLastBotMessage(data.response);
+
+    imageBase64 = "";
+    imageInput.value = "";
+    document.getElementById('image-preview').style.display = "none";
+    };
+
+   function appendMessage(sender, message, imageUrl = null) {
+        const div = document.createElement("div");
+        div.classList.add("message");
+        let html = `<strong>${sender}:</strong> ${message}`;
+        if (imageUrl) {
+            html += `<br><img src="${imageUrl}" class="chat-image" style="max-width:120px; max-height:120px; border-radius:8px; margin-top:6px;">`;
+        }
+        div.innerHTML = html;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function replaceLastBotMessage(message) {
+      const messages = document.querySelectorAll(".message");
+      const last = messages[messages.length - 1];
+      if (last && last.innerText.startsWith("Sarkar Buddy: Thinking")) {
+        last.innerHTML = `<strong>Sarkar Buddy:</strong> ${message}`;
+      } else {
+        appendMessage("Sarkar Buddy", message);
+      }
+    }
+
+    // Voice to Text
+    voiceBtn.onclick = () => {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = langSelect.value === "te" ? "te-IN" : "en-US";
+      recognition.start();
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        userInput.value = transcript;
+      };
+    };
+
+    // Text to speech (manual read button)
+    speakBtn.onclick = () => {
+      if (isSpeaking) {
+        synth.cancel();
+        isSpeaking = false;
+        speakBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        return;
+      }
+
+      const messages = document.querySelectorAll(".message");
+      const lastBotMessage = Array.from(messages).reverse().find(m => m.innerText.startsWith("Sarkar Buddy:"));
+      if (!lastBotMessage) return;
+
+      const utterance = new SpeechSynthesisUtterance(
+        lastBotMessage.innerText.replace("Sarkar Buddy:", "").trim()
+      );
+      utterance.lang = langSelect.value === "te" ? "te-IN" : "en-US";
+      synth.speak(utterance);
+      isSpeaking = true;
+      speakBtn.innerHTML = '<i class="fas fa-stop"></i>';
+
+      utterance.onend = () => {
+        isSpeaking = false;
+        speakBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+      };
+    };
+    document.getElementById('speak-btn').addEventListener('click', function() {
+      const audio = document.getElementById('audio-response');
+      if (audio.src) audio.play();
+    });
+
+    // Prevent auto-play after response
+    function setAudioResponse(base64Audio) {
+      const audio = document.getElementById('audio-response');
+      if (base64Audio) {
+        audio.src = "data:audio/mp3;base64," + base64Audio;
+      } else {
+        audio.src = "";
+      }
+    }
+   
+  // Set audio source after AJAX, but do NOT play automatically
+  function setAudioResponse(base64Audio) {
+    const audio = document.getElementById('audio-response');
+    if (base64Audio) {
+      audio.src = "data:audio/mp3;base64," + base64Audio;
+    } else {
+      audio.src = "";
+    }
+  }
+
+  // Only play audio when speak button is clicked
+  document.getElementById('speak-btn').addEventListener('click', function() {
+    const audio = document.getElementById('audio-response');
+    if (audio.src) audio.play();
+  });
+
+  document.getElementById('user-input').addEventListener('keydown', function(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      document.getElementById('send-btn').click();
+    }
+  });
+
+  </script>
+</body>
+</html>

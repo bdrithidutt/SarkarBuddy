@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sarkar Buddy Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>Sarkar Buddy</h2>
+      <ul>
+  <li><a href="index.html">🏠 Home</a></li>
+  <li><a href="#">📄 View Schemes</a></li>
+  <li><a href="#">🛠 File Complaints</a></li>
+  <li><a href="#">🗣 Submit Feedback</a></li>
+  <li><a href="#">💬 Chat with assistant</a></li>
+  <li><a href="#">📄 Download Forms</a></li>
+  <li><a href="#">🗳 Apply for Services</a></li>
+  <li><a href="#">📞 Contact Officials</a></li>
+</ul>
+
+    </aside>
+
+    <main class="main-content">
+      <!-- Language Toggle -->
+      <div class="language-toggle">
+        <label class="switch">
+          <input type="checkbox" id="languageToggle" />
+          <span class="slider"></span>
+        </label>
+        <span id="languageLabel">English</span>
+      </div>
+
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search services, schemes, FAQs..." autocomplete="off" />
+        <div class="search-icon">🔍</div>
+        <ul id="suggestions" class="suggestions-list"></ul>
+      </div>
+
+      <h1>Your Voice, Your Platform</h1>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Total Complaints</h3>
+          <p>125</p>
+        </div>
+        <div class="card">
+          <h3>Pending Requests</h3>
+          <p>12</p>
+        </div>
+        <div class="card">
+          <h3>Resolved Issues</h3>
+          <p>113</p>
+        </div>
+      </div>
+
+      <div class="feedback-form">
+  <h2 id="formTitle">Submit Feedback or Report a Grievance</h2>
+  <form id="grievanceForm">
+    <input type="text" id="userName" placeholder="Your Name" required />
+    <textarea id="userIssue" placeholder="Describe the issue..." required></textarea>
+    <select id="userDistrict" required>
+      <option value="">Select District</option>
+      <option value="Hyderabad">Hyderabad</option>
+      <option value="Warangal">Warangal</option>
+      <option value="Nizamabad">Nizamabad</option>
+      <!-- Add more districts as needed -->
+    </select>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+
+    </main>
+  </div>
+
+  <script>
+    // Language toggle logic
+    const languageToggle = document.getElementById('languageToggle');
+    const languageLabel = document.getElementById('languageLabel');
+
+    languageToggle.addEventListener('change', () => {
+      if (languageToggle.checked) {
+        languageLabel.textContent = 'తెలుగు'; // Telugu label when toggled on
+        // Add code here to switch page content to Telugu if you want
+      } else {
+        languageLabel.textContent = 'English';
+        // Add code here to switch page content back to English
+      }
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    const suggestions = document.getElementById('suggestions');
+
+    // Example list of services, schemes, FAQs with icons for categories
+    const searchItems = [
+      { label: "Pension Scheme", icon: "🔍" },
+      { label: "Health Services", icon: "🏥" },
+      { label: "Road Pothole Complaint", icon: "🛠" },
+      { label: "Ration Card Application", icon: "📄" },
+      { label: "Water Supply Issues", icon: "🚰" },
+      { label: "Electricity Bill Payment", icon: "💡" },
+      { label: "Public Transport Info", icon: "🚌" },
+      { label: "Birth Certificate FAQ", icon: "📃" },
+      { label: "Tax Payment", icon: "💰" }
+    ];
+
+    // Show suggestions based on user input
+    searchInput.addEventListener('input', () => {
+      const input = searchInput.value.toLowerCase().trim();
+      suggestions.innerHTML = '';
+
+      if (!input) {
+        suggestions.style.display = 'none';
+        return;
+      }
+
+      // Filter items that include the typed text
+      const filtered = searchItems.filter(item =>
+        item.label.toLowerCase().includes(input)
+      );
+
+      if (filtered.length === 0) {
+        suggestions.style.display = 'none';
+        return;
+      }
+
+      // Create suggestion list items
+      filtered.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="icon">${item.icon}</span> ${item.label}`;
+        li.addEventListener('click', () => {
+          searchInput.value = item.label;
+          suggestions.style.display = 'none';
+          // TODO: Add your action here on selecting suggestion (e.g. navigate or filter)
+          alert(`You selected: ${item.label}`);
+        });
+        suggestions.appendChild(li);
+      });
+
+      suggestions.style.display = 'block';
+    });
+
+    // Hide suggestions if clicked outside
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !suggestions.contains(e.target)) {
+        suggestions.style.display = 'none';
+      }
+    });
+
+    function updateFormLanguage(isTelugu) {
+  document.getElementById('formTitle').textContent = isTelugu ? 'ఫీడ్‌బ్యాక్ లేదా ఫిర్యాదు సమర్పించండి' : 'Submit Feedback or Report a Grievance';
+  document.getElementById('userName').placeholder = isTelugu ? 'మీ పేరు' : 'Your Name';
+  document.getElementById('userIssue').placeholder = isTelugu ? 'సమస్యను వివరించండి...' : 'Describe the issue...';
+  document.getElementById('userDistrict').options[0].text = isTelugu ? 'జిల్లాను ఎంచుకోండి' : 'Select District';
+}
+
+// Call this whenever the toggle changes
+languageToggle.addEventListener('change', () => {
+  const isTelugu = languageToggle.checked;
+  languageLabel.textContent = isTelugu ? 'తెలుగు' : 'English';
+  updateFormLanguage(isTelugu);
+});
+
+  </script>
+</body>
+</html>
